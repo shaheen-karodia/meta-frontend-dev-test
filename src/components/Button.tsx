@@ -10,8 +10,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ variant, size, text, ...props }) => (
-  <button {...props}>{text}</button>
-);
+const Button: React.FC<ButtonProps> = ({ variant, size, text, ...props }) => {
+  console.log("variant", variant);
+  console.log("size", size);
+  return <button {...props}>{text}</button>;
+};
 
 export default Button;
