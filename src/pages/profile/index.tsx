@@ -2,17 +2,17 @@ import { NextPage } from "next";
 import axios from "axios";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "@/common/constants";
-import { PostsAPIResponse, UsersAPIResponse } from "@/types/api";
+import { PostsAPIResponse } from "@/types/api";
 import { QUERY_KEYS } from "@/data/utils";
+import useUsersQuery from "@/data/queries/useUsersQuery";
+import usePostsQuery from "@/data/queries/usePostsQuery";
+import { fetchPosts } from "@/data/fetchers";
 
 /**
  * FETCHERS
  */
 const fetchUserPosts = (id: string): Promise<PostsAPIResponse> =>
   axios.get(`${BASE_URL}/users/${id}/posts`).then((res) => res.data);
-
-const fetchPosts = (): Promise<PostsAPIResponse[]> =>
-  axios.get(`${BASE_URL}/posts`).then((res) => res.data);
 
 const Profile: NextPage = () => {
   const { data } = useQuery({
@@ -25,15 +25,8 @@ const Profile: NextPage = () => {
     queryFn: () => fetchUserPosts("1"), // TODO remove hard coding of this value
   });
 
-  const usersQuery = useQuery({
-    queryKey: QUERY_KEYS.USERS,
-    queryFn: () => fetchUsers(),
-  });
-
-  const postsQuery = useQuery({
-    queryKey: QUERY_KEYS.POSTS,
-    queryFn: () => fetchPosts(),
-  });
+  const usersQuery = useUsersQuery();
+  const postsQuery = usePostsQuery();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-50">
