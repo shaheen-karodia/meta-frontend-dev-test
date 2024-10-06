@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import axios from "axios";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/common/react-query";
 import { BASE_URL } from "@/common/constants";
 import { PostsAPIResponse, UsersAPIResponse } from "@/types/api";
+import { QUERY_KEYS } from "@/data/utils";
 
 /**
  * FETCHERS
