@@ -3,50 +3,7 @@ import axios from "axios";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/common/react-query";
 import { BASE_URL } from "@/common/constants";
-
-/**
- * TYPES
- */
-type PaginatedAPI = {
-  total: number;
-  skip: number;
-  limit: number;
-};
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-  tags: string[];
-  reactions: {
-    likes: number;
-    dislikes: number;
-  };
-  views: number;
-};
-
-type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  username: string;
-  address: {
-    state: string;
-    country: string;
-  };
-  company: {
-    department: string;
-  };
-};
-
-type PostsAPIResponse = {
-  posts: Post[];
-} & PaginatedAPI;
-
-type UsersAPIResponse = {
-  users: User[];
-} & PaginatedAPI;
+import { PostsAPIResponse, UsersAPIResponse } from "@/types/api";
 
 /**
  * FETCHERS
