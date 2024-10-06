@@ -11,9 +11,6 @@ import { QUERY_KEYS } from "@/data/utils";
 const fetchUserPosts = (id: string): Promise<PostsAPIResponse> =>
   axios.get(`${BASE_URL}/users/${id}/posts`).then((res) => res.data);
 
-const fetchUsers = (): Promise<UsersAPIResponse> =>
-  axios.get(`${BASE_URL}/users`).then((res) => res.data);
-
 const fetchPosts = (): Promise<PostsAPIResponse[]> =>
   axios.get(`${BASE_URL}/posts`).then((res) => res.data);
 
