@@ -1,6 +1,7 @@
 import React from "react";
 
 import PostStat from "./PostStat";
+import Tag from "./Tag";
 
 // type TPostCard = {
 //   firstName: string;
@@ -27,6 +28,17 @@ const PostCard: React.FC = () => {
         odio obcaecati, ratione cupiditate cumque rerum beatae, quasi repellat
         veniam recusandae maiores consequuntur quibusdam itaque! Minima odio
         sint aut nisi praesentium molestias.
+        <div className="flex justify-start">
+          <Tag href="#" className="mr-3">
+            #react
+          </Tag>
+          <Tag href="#" className="mr-3">
+            #javascript
+          </Tag>
+          <Tag href="#" className="mr-3">
+            #typescript
+          </Tag>
+        </div>
       </div>
       <div className="border-t p-4 flex">
         <PostStat variant="like" number={20} className="mr-6" />
