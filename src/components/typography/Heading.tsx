@@ -17,14 +17,12 @@ const typography = cva(["font-mono", "font-extrabold", "text-primary"], {
 
 interface TypographyProps {
   children: ReactNode;
-  variant: "h1" | "h2" | "h3" | "h4";
+  size: "h1" | "h2" | "h3" | "h4";
 }
 
-const Heading = ({ children, variant }: TypographyProps) => {
-  const Component = variant;
-  return (
-    <Component className={typography({ size: variant })}>{children}</Component>
-  );
+const Heading = ({ children, size }: TypographyProps) => {
+  const Component = size;
+  return <Component className={typography({ size })}>{children}</Component>;
 };
 
 export default Heading;

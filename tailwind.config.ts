@@ -10,12 +10,13 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#141C24",
+        secondary: "#5C6970",
       },
       fontFamily: {
         mono: [
           "var(--font-roboto-flex)",
           {
-            fontVariationSettings: "'wght' 800, 'wdth' 150",
+            fontVariationSettings: "'wdth' 150",
           },
         ],
       },
