@@ -15,14 +15,19 @@ const typography = cva(["font-mono", "font-extrabold", "text-primary"], {
   },
 });
 
-interface TypographyProps {
+interface HeadingProps {
   children: ReactNode;
   size: "h1" | "h2" | "h3" | "h4";
+  className?: string;
 }
 
-const Heading = ({ children, size }: TypographyProps) => {
+const Heading = ({ children, size, className }: HeadingProps) => {
   const Component = size;
-  return <Component className={typography({ size })}>{children}</Component>;
+  return (
+    <Component className={typography({ size, className })}>
+      {children}
+    </Component>
+  );
 };
 
 export default Heading;

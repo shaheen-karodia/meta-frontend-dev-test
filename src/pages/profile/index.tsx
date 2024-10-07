@@ -7,6 +7,8 @@ import { QUERY_KEYS } from "@/data/utils";
 import useUsersQuery from "@/data/queries/useUsersQuery";
 import usePostsQuery from "@/data/queries/usePostsQuery";
 import { fetchPosts } from "@/data/fetchers";
+import Container from "@/components/Container";
+import ProfileCard from "@/components/ProfileCard";
 
 /**
  * FETCHERS
@@ -29,21 +31,26 @@ const Profile: NextPage = () => {
   const postsQuery = usePostsQuery();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50">
-      <h1 className="text-3xl font-semibold">
-        Profile Page
-        {JSON.stringify(data)}
-      </h1>
+    <>
+      <Container>
+        <ProfileCard />
+        <div className="min-h-screen flex items-center justify-center bg-blue-50">
+          <h1 className="text-3xl font-semibold">
+            Profile Page
+            {JSON.stringify(data)}
+          </h1>
 
-      <p>User Posts</p>
-      <pre>{JSON.stringify(userPostsQuery.data)}</pre>
+          <p>User Posts</p>
+          <pre>{JSON.stringify(userPostsQuery.data)}</pre>
 
-      <p>Users</p>
-      <pre>{JSON.stringify(usersQuery.data)}</pre>
+          <p>Users</p>
+          <pre>{JSON.stringify(usersQuery.data)}</pre>
 
-      <p>Posts</p>
-      <pre>{JSON.stringify(postsQuery.data)}</pre>
-    </div>
+          <p>Posts</p>
+          <pre>{JSON.stringify(postsQuery.data)}</pre>
+        </div>
+      </Container>
+    </>
   );
 };
 

@@ -21,7 +21,7 @@ const typography = cva(["font-mono", "font-medium", "text-primary"], {
 
 interface BodyTextProps {
   children: ReactNode;
-  size: "small" | "medium";
+  size: "small" | "medium" | "regular";
   element: "p" | "span";
   overline?: boolean;
   className?: string;

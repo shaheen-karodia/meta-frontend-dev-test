@@ -28,7 +28,7 @@ const PostCard: React.FC = () => {
   return (
     <div className="flex flex-col border rounded-2xl border-gray-300 ">
       <div className="p-4 flex items-start">
-        <Avatar />
+        <Avatar className="mr-3" />
         <div>
           <Heading size="h4">Emily Johnson</Heading>
           <BodyText element="p" size="small" className="text-secondary mb-3">

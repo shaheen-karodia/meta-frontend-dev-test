@@ -1,13 +1,23 @@
 import Image from "next/image";
 
-const Avatar = () => {
+// TODO: Comee up with better way to merge props
+interface AvatarProps {
+  className?: string;
+  width?: number;
+  height?: number;
+}
+const Avatar: React.FC<AvatarProps> = ({
+  className = "",
+  width = 40,
+  height = 40,
+}) => {
   return (
     <Image
       src="/avatar.png"
       alt="User Avatar"
-      width="40"
-      height="40"
-      className="rounded-full mr-3"
+      width={width}
+      height={height}
+      className={`rounded-full ${className ? className : ""}`}
     />
   );
 };
