@@ -13,7 +13,11 @@ const Skeleton: React.FC<SkeletonProps> = ({
   return (
     <div
       className={`skeleton-loader rounded-full ${className}`}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{
+        width: `${width}px`,
+        minWidth: `${width}px`,
+        height: `${height}px`,
+      }}
     />
   );
 };

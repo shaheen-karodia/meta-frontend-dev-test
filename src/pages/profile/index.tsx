@@ -9,6 +9,8 @@ import usePostsQuery from "@/data/queries/usePostsQuery";
 import Container from "@/components/Container";
 import ProfileCard from "@/components/ProfileCard";
 import TitleBar from "@/components/TitleBar";
+import Heading from "@/components/typography/Heading";
+import PostCard from "@/components/PostCard";
 
 /**
  * FETCHERS
@@ -34,24 +36,28 @@ const Profile: NextPage = () => {
     <div className="bg-gray-50">
       <TitleBar title="Profile" />
       <Container>
+        <Heading size="h2">Recent</Heading>
+        <PostCard
+          tags={["tag1", "tag2"]}
+          body={
+            "Dave watched as the forest burned up on the hill, only a few miles from her house. The car had been hastily packed and Marta was inside trying to round up the last of the pets. Dave went through his mental list of the most important papers and documents that they couldn't leave behind. He scolded himself for not having prepared these better in advance and hoped that he had remembered everything that was needed. He continued to wait for Marta to appear with the pets, but she still was nowhere to be seen."
+          }
+          firstName={"Placeholder"}
+          lastName={"Placeholder"}
+          username={"Placeholder"}
+          skeleton
+        />
+        <PostCard
+          tags={["tag1", "tag2"]}
+          body={
+            "Dave watched as the forest burned up on the hill, only a few miles from her house. The car had been hastily packed and Marta was inside trying to round up the last of the pets. Dave went through his mental list of the most important papers and documents that they couldn't leave behind. He scolded himself for not having prepared these better in advance and hoped that he had remembered everything that was needed. He continued to wait for Marta to appear with the pets, but she still was nowhere to be seen."
+          }
+          firstName={"Placeholder"}
+          lastName={"Placeholder"}
+          username={"Placeholder"}
+        />
         <ProfileCard skeleton />
         <ProfileCard />
-        <div className="min-h-screen flex items-center justify-center bg-blue-50">
-          {/* <h1 className="text-3xl font-semibold">
-            Profile Page
-            {JSON.stringify(data)}
-          </h1>
-
-          <p>User Posts</p>
-          <pre>{JSON.stringify(userPostsQuery.data)}</pre>
-
-          <p>Users</p>
-          <pre>{JSON.stringify(usersQuery.data)}</pre>
-
-          <p>Posts</p>
-          <pre>{JSON.stringify(postsQuery.data)}</pre>
-          */}
-        </div>
       </Container>
     </div>
   );
