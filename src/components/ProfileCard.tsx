@@ -47,25 +47,14 @@ const ProfileCard = () => {
         </div>
       </div>
 
-      <div className="border-t py-4 px-6 flex"></div>
-      <Button intent="solid" size="large">
-        Button
-      </Button>
-      <Button intent="solid" size="medium">
-        Button
-      </Button>
-      <Button intent="solid" size="small">
-        Button
-      </Button>
-      <Button intent="outline" size="large">
-        Button
-      </Button>
-      <Button intent="outline" size="medium">
-        Button
-      </Button>
-      <Button intent="outline" size="small">
-        Button
-      </Button>
+      <div className="border-t py-4 px-6 flex">
+        <Button intent="solid" size="medium" className="mr-4">
+          Follow
+        </Button>
+        <Button intent="outline" size="medium">
+          Message
+        </Button>
+      </div>
     </div>
   );
 };
