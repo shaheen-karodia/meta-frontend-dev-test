@@ -4,6 +4,7 @@ import Heading from "./typography/Heading";
 import BodyText from "./typography/BodyText";
 import Location from "./Location";
 import CompanyDepartment from "./CompanyDepartment";
+import Stat from "./Stat";
 
 // TODO: TYPE
 // TODO: SKELETON
@@ -36,8 +37,15 @@ const ProfileCard = () => {
           </BodyText>
           <Location text="San Francisco, CA" />
         </div>
-        <CompanyDepartment color="blue">Engineering</CompanyDepartment>
+        <CompanyDepartment color="blue" className="mb-6">
+          Engineering
+        </CompanyDepartment>
+        <div className="flex">
+          <Stat number={24} label="Posts" className="mr-6" />
+          <Stat number={20} label="Likes" />
+        </div>
       </div>
+
       <div className="border-t py-4 px-6 flex">Button Container</div>
     </div>
   );
