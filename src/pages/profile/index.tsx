@@ -11,6 +11,7 @@ import ProfileCard from "@/components/ProfileCard";
 import TitleBar from "@/components/TitleBar";
 import Heading from "@/components/typography/Heading";
 import PostCard from "@/components/PostCard";
+import UserCardSmall from "@/components/UserCardSmall";
 
 /**
  * FETCHERS
@@ -37,6 +38,8 @@ const Profile: NextPage = () => {
       <TitleBar title="Profile" />
       <Container>
         <Heading size="h2">Recent</Heading>
+        <UserCardSmall skeleton />
+        <UserCardSmall />
         <PostCard
           tags={["tag1", "tag2"]}
           body={

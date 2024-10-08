@@ -45,9 +45,9 @@ const Feed: NextPage = () => {
         <Heading size="h2">Suggested Posts</Heading>
         {SuggestedPosts}
         <Heading size="h2">Who to Follow</Heading>
+        {/* <UserCardSmall />
         <UserCardSmall />
-        <UserCardSmall />
-        <UserCardSmall />
+        <UserCardSmall /> */}
         <Heading size="h2">Recent</Heading>
         {/* <PostCard tags={[]} body="" />
         <PostCard tags={[]} body="" />
