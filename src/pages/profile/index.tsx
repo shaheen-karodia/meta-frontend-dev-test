@@ -34,6 +34,7 @@ const Profile: NextPage = () => {
     <div className="bg-gray-50">
       <TitleBar title="Profile" />
       <Container>
+        <ProfileCard skeleton />
         <ProfileCard />
         <div className="min-h-screen flex items-center justify-center bg-blue-50">
           {/* <h1 className="text-3xl font-semibold">

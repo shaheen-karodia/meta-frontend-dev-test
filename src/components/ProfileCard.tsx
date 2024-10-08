@@ -13,7 +13,10 @@ import { Button } from "./Button";
 // TODO: How to externalize the linear gradient
 // TODO: box shadow on the avataar
 
-const ProfileCard = () => {
+interface ProfileCardProps {
+  skeleton?: boolean;
+}
+const ProfileCard: React.FC<ProfileCardProps> = ({ skeleton }) => {
   return (
     <div className="border rounded-xl border-gray-300 relative">
       <Avatar
@@ -22,11 +25,9 @@ const ProfileCard = () => {
         height={120}
       />
       <div
-        style={{
-          background:
-            "linear-gradient(102.78deg, #ECE9FB 0.31%, #FDEDE7 82.87%)",
-        }}
-        className="rounded-t-xl h-16 "
+        className={`rounded-t-xl h-16 ${
+          skeleton ? "skeleton-loader" : "profile-card-gradient"
+        }`}
       ></div>
       <div className="flex flex-col items-center sm:items-start sm:ml-[168px] m-6">
         <Heading size="h1" className="mb-2">
