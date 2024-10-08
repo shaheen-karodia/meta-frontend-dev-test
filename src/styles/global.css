@@ -24,7 +24,7 @@
 
 .skeleton-loader {
   background: linear-gradient(110deg, #ebedee 8%, #f9fafa 18%, #ebedee 33%);
-  animation: shine 1.3s infinite;
+  animation: shine 3s infinite;
   background-position-x: -500px;
   background-size: 500px 100%;
 }
