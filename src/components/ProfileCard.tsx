@@ -2,6 +2,8 @@ import React from "react";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
 import BodyText from "./typography/BodyText";
+import Location from "./Location";
+import CompanyDepartment from "./CompanyDepartment";
 
 // TODO: TYPE
 // TODO: SKELETON
@@ -28,16 +30,13 @@ const ProfileCard = () => {
         <Heading size="h1" className="mb-2">
           Emily Johnson
         </Heading>
-        <div className="flex">
+        <div className="flex mb-3">
           <BodyText size="regular" element="p" className="text-secondary mr-2">
             @emily
           </BodyText>
+          <Location text="San Francisco, CA" />
         </div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ad
-        eveniet, expedita, porro aliquid suscipit esse dolorum illo praesentium,
-        quo nam maxime labore saepe provident? Optio harum, aliquam iste
-        explicabo odio magnam ipsam, non excepturi omnis, debitis sunt
-        voluptatem quas!
+        <CompanyDepartment color="blue">Engineering</CompanyDepartment>
       </div>
       <div className="border-t py-4 px-6 flex">Button Container</div>
     </div>
