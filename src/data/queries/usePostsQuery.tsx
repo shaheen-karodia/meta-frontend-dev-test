@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/data/utils";
-import { fetchPosts } from "@/data/fetchers";
+import axios from "axios";
+import { BASE_URL } from "@/common/constants";
+import { PostsAPIResponse } from "@/types/api";
 
+// TODO: posts api is paginated
 const usePostsQuery = () => {
   return useQuery({
     queryKey: QUERY_KEYS.POSTS,
-    queryFn: fetchPosts,
+    queryFn: (): Promise<PostsAPIResponse> =>
+      axios.get(`${BASE_URL}/posts`).then((res) => res.data),
   });
 };
 

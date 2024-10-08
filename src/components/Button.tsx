@@ -1,8 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "cva";
 
-//TODO  hover state
-//TODO must import style 700
 const button = cva(["font-mono", "rounded-full", "leading-none"], {
   variants: {
     intent: {

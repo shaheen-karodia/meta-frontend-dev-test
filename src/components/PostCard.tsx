@@ -6,51 +6,55 @@ import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
 
-// type TPostCard = {
-//   firstName: string;
-//   lastName: string;
-//   username: string;
-//   tags: string[];
-//   views: number;
-//   reactions: {
-//     dislikes: number;
-//     likes: number;
-//   };
-//   image: string;
-//   body: string;
-// };
+type PostCardProps = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  tags: string[];
+  // views: number;
+  // reactions: {
+  //   dislikes: number;
+  //   likes: number;
+  // };
+  // image: string;
+  body: string;
+  className?: string;
+};
 
 //TODO: Type
 //TODO: Skeleton
 //TODO: Hover
 
-const PostCard: React.FC = () => {
+const PostCard: React.FC<PostCardProps> = ({
+  className = "",
+  tags,
+  body,
+  username,
+  firstName,
+  lastName,
+}) => {
   return (
-    <div className="flex flex-col border rounded-2xl border-gray-300 ">
+    <div
+      className={`flex flex-col border rounded-2xl border-gray-300 ${className}`}
+    >
       <div className="p-4 flex items-start">
         <Avatar className="mr-3" />
         <div>
-          <Heading size="h4">Emily Johnson</Heading>
+          <Heading size="h4">
+            {firstName} {lastName}
+          </Heading>
           <BodyText element="p" size="small" className="text-secondary mb-3">
-            @emily
+            @{username}
           </BodyText>
           <BodyText element="p" size="medium" className="text-secondary mb-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
-            provident sapiente quasi, mollitia blanditiis ipsam esse ullam?
-            Tempore odio obcaecati, ratione cupiditate cumque rerum beatae,
-            quasi repellat veniam recusandae maiores consequuntur quibusdam
-            itaque! Minima odio sint aut nisi praesentium molestias.
+            {body}
           </BodyText>
           <div className="flex justify-start">
-            <Tag href="#" className="mr-3">
-              #react
-            </Tag>
-            <Tag href="#" className="mr-3">
-              #javascript
-            </Tag>
-            <Tag href="#" className="mr-3">
-              #typescript
-            </Tag>
+            {tags.map((tag) => (
+              <Tag key={tag} href="#" className="mr-3">
+                #{tag}
+              </Tag>
+            ))}
           </div>
         </div>
       </div>

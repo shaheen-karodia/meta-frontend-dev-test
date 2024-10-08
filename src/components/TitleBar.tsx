@@ -1,12 +1,18 @@
 import React from "react";
 import BackButton from "./BackButton";
+import Heading from "./typography/Heading";
 
-const TitleBar = () => {
+interface TitleBarProps {
+  backHref?: string;
+  title: string;
+}
+
+const TitleBar: React.FC<TitleBarProps> = ({ backHref, title }) => {
   return (
-    <div className="flex space-between">
-      <BackButton />
-      <h1>Title</h1>
-      <div></div>
+    <div className="flex my-[14px] px-3 bg-white border-b border-gray-300 shadow-sm align-middle">
+      {backHref && <BackButton href={backHref} />}
+      <Heading size="h2">{title}</Heading>
+      <div>yeet</div>
     </div>
   );
 };

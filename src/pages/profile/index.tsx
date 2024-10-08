@@ -6,9 +6,9 @@ import { PostsAPIResponse } from "@/types/api";
 import { QUERY_KEYS } from "@/data/utils";
 import useUsersQuery from "@/data/queries/useUsersQuery";
 import usePostsQuery from "@/data/queries/usePostsQuery";
-import { fetchPosts } from "@/data/fetchers";
 import Container from "@/components/Container";
 import ProfileCard from "@/components/ProfileCard";
+import TitleBar from "@/components/TitleBar";
 
 /**
  * FETCHERS
@@ -31,11 +31,12 @@ const Profile: NextPage = () => {
   const postsQuery = usePostsQuery();
 
   return (
-    <>
+    <div className="bg-gray-50">
+      <TitleBar title="Profile" />
       <Container>
         <ProfileCard />
         <div className="min-h-screen flex items-center justify-center bg-blue-50">
-          <h1 className="text-3xl font-semibold">
+          {/* <h1 className="text-3xl font-semibold">
             Profile Page
             {JSON.stringify(data)}
           </h1>
@@ -48,9 +49,10 @@ const Profile: NextPage = () => {
 
           <p>Posts</p>
           <pre>{JSON.stringify(postsQuery.data)}</pre>
+          */}
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -61,16 +63,16 @@ const Profile: NextPage = () => {
 // TODO: figure out how to extract axios client
 
 export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["profile"],
-    queryFn: fetchPosts,
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: ["profile"],
+  //   queryFn: () => {},
+  // });
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
     },
   };
 }

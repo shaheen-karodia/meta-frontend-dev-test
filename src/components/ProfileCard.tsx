@@ -17,7 +17,7 @@ const ProfileCard = () => {
   return (
     <div className="border rounded-xl border-gray-300 relative">
       <Avatar
-        className="absolute top-[40px] left-6 border-8 border-white"
+        className="absolute top-[-30px] left-1/2 -translate-x-2/4 sm:translate-x-0 sm:top-[40px] sm:left-6 border-8 border-white"
         width={120}
         height={120}
       />
@@ -28,7 +28,7 @@ const ProfileCard = () => {
         }}
         className="rounded-t-xl h-16 "
       ></div>
-      <div className="ml-[168px] m-6">
+      <div className="flex flex-col items-center sm:items-start sm:ml-[168px] m-6">
         <Heading size="h1" className="mb-2">
           Emily Johnson
         </Heading>

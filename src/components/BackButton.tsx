@@ -1,7 +1,15 @@
+import Link from "next/link";
 import React from "react";
 
-const BackButton = () => {
-  return <div>BackButton</div>;
+interface BackButtonProps {
+  href: string;
+}
+const BackButton: React.FC<BackButtonProps> = ({ href }) => {
+  return (
+    <Link href={href}>
+      <div>BackButton</div>
+    </Link>
+  );
 };
 
 export default BackButton;
