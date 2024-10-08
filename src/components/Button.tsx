@@ -1,19 +1,34 @@
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
+import { cva, type VariantProps } from "cva";
 
-//TODO learn about CVA
-//TODO loading state
-//TODO learn tailwind merge
+//TODO  hover state
+//TODO must import style 700
+const button = cva(["font-mono", "rounded-full"], {
+  variants: {
+    intent: {
+      solid: ["font-bold", "button-solid-gradient", "text-white"],
+      outline: [
+        "text-primary-default",
+        "border",
+        "border-primary-default",
+        "hover:bg-primary-50",
+      ],
+    },
+    size: {
+      small: ["py-[6px]", "px-[10px]", "text-xs"],
+      medium: ["py-2", "px-[14px]", "text-base"],
+      large: ["py-4", "px-6", "text-base"],
+    },
+  },
+});
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "solid" | "outline";
-  size: "large" | "medium" | "small";
-  text: string;
-}
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof button> {}
 
-const Button: React.FC<ButtonProps> = ({ variant, size, text, ...props }) => {
-  console.log("variant", variant);
-  console.log("size", size);
-  return <button {...props}>{text}</button>;
-};
-
-export default Button;
+export const Button: React.FC<ButtonProps> = ({
+  className,
+  intent,
+  size,
+  ...props
+}) => <button className={button({ intent, size, className })} {...props} />;
