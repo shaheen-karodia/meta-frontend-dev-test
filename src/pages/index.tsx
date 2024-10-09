@@ -9,16 +9,17 @@ import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 import { UserCardSkeleton } from "@/components/skeletons/UserCardSkeleton";
 import PostCardSkeleton from "@/components/skeletons/PostCardSkeleton";
 import useRecentPostsQuery from "@/data/queries/useRecentPostsQuery";
+import { useState } from "react";
+import { Button } from "@/components/Button";
 
 const Feed: NextPage = () => {
+  const [page, setPage] = useState(0);
   const topUserQuery = useTopUsersQuery();
   const suggestedPostsQuery = useSuggestedPostsQuery();
-  const recentPostsQuery = useRecentPostsQuery(0);
+  const recentQuery = useRecentPostsQuery(page);
 
   const skeleton =
-    !topUserQuery.data || !suggestedPostsQuery.data || !recentPostsQuery.data; //TODO not the correct way
-
-  // const { isPending, isError, error, data, isFetching, isPlaceholderData } =
+    !topUserQuery.data || !suggestedPostsQuery.data || !recentQuery.data;
 
   return (
     <div className="bg-gray-50">
@@ -71,7 +72,7 @@ const Feed: NextPage = () => {
           ? Array.from({ length: 4 }).map((_, i) => (
               <PostCardSkeleton key={i} className="mt-4" />
             ))
-          : recentPostsQuery.data.map((post) => (
+          : recentQuery.data.posts.map((post) => (
               <PostCard
                 userId={post.userId}
                 key={post.id}
@@ -86,17 +87,31 @@ const Feed: NextPage = () => {
                 views={post.views}
               />
             ))}
-        {/* <button
+
+        {/* TODO: REFACTOR BUTTON TO INFINTE LOADER  */}
+        <Button
+          intent="outline"
+          size="medium"
+          className="mt-4 block"
           onClick={() => {
-            if (!isPlaceholderData && recentPostsQuery.data.) {
-              setPage((old) => old + 1);
+            if (
+              !recentQuery.isPlaceholderData &&
+              recentQuery.data &&
+              recentQuery.data.meta.skip < recentQuery.data?.meta.total
+            ) {
+              setPage((old) => old + 5);
             }
           }}
-          // Disable the Next Page button until we know a next page is available
-          // disabled={isPlaceholderData || !data?.hasMore}
+          disabled={
+            recentQuery.isPlaceholderData ||
+            !(
+              recentQuery.data &&
+              recentQuery.data.meta.skip < recentQuery.data?.meta.total
+            )
+          }
         >
-          Next Page
-        </button> */}
+          Load More {recentQuery.isFetching && "Loading..."}
+        </Button>
       </Container>
     </div>
   );

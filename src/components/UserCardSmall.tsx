@@ -5,9 +5,6 @@ import Avatar from "./Avatar";
 import { Button } from "./Button";
 import { TopUser } from "@/types/api/top-user";
 
-// TODO: BUTTON - wire
-// TODO: HOVER STATE
-
 type UserCardSmallProps = TopUser;
 
 export const UserCardSmall: React.FC<UserCardSmallProps> = ({

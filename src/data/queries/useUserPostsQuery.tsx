@@ -1,30 +1,32 @@
+import { DisplayPost } from "@/types/api/display-post";
 import { RecentPostsAPIResponse } from "@/types/api/responses";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { QUERY_KEYS } from "../utils";
 
-export const fetchRecentPosts = async (
-  skip: number
-): Promise<Extract<RecentPostsAPIResponse, { success: true }>> => {
+export const fetchUserPosts = async (
+  skip: number,
+  userId: string
+): Promise<DisplayPost[]> => {
   const response: RecentPostsAPIResponse = await axios
-    .get(`/api/posts/recent`, {
+    .get(`/api/users/${userId}/posts`, {
       params: { skip },
     })
     .then((res) => res.data);
 
   if (response.success) {
-    return response;
+    return response.posts;
   } else {
     throw new Error(response.error);
   }
 };
 
-const useRecentPostsQuery = (page: number) => {
+const useUserPostsQuery = (page: number, userId: string) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.POSTS, "recent", page],
-    queryFn: () => fetchRecentPosts(page),
+    queryKey: [QUERY_KEYS.USER, userId, QUERY_KEYS.POSTS, page],
+    queryFn: () => fetchUserPosts(page, userId),
     placeholderData: keepPreviousData,
   });
 };
 
-export default useRecentPostsQuery;
+export default useUserPostsQuery;
