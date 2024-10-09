@@ -3,7 +3,7 @@ import { mapDisplayPosts } from "@/common/utils";
 import { RecentPostsAPIResponse } from "@/types/api/responses";
 import {
   PostsAPIResponse,
-  UsersAPIResponse,
+  UserAPIResponse,
 } from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -13,31 +13,34 @@ async function handler(
 ) {
   const LIMIT = 5;
   const skip = req.query.skip ?? ("0" as string);
+  const id = req.query.id as string;
+
   try {
     const responses = await Promise.all([
-      api.get<PostsAPIResponse>(`/posts?limit=${LIMIT}&skip=${skip}`),
-      api.get<UsersAPIResponse>("/users?limit=0"),
+      api.get<PostsAPIResponse>(
+        `/users/${id}/posts?limit=${LIMIT}&skip=${skip}`
+      ),
+      api.get<UserAPIResponse>(`/users/${id}`),
     ]);
 
     const posts = responses[0].data.posts;
-    const users = responses[1].data.users;
+    const user = responses[1].data;
 
     const pagination = {
       total: responses[0].data.total,
       skip: responses[0].data.skip,
       limit: LIMIT,
     };
-
     res.status(200).json({
       success: true,
-      posts: mapDisplayPosts(posts, users),
+      posts: mapDisplayPosts(posts, [user]),
       meta: pagination,
     });
   } catch (error) {
-    console.error("Error fetching suggested posts", error);
+    console.error("Error fetching user posts", error);
     res
       .status(500)
-      .json({ success: false, error: "Failed to fetch suggested posts" });
+      .json({ success: false, error: "Failed to fetch user posts" });
   }
 }
 
