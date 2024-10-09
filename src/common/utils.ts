@@ -1,4 +1,4 @@
-import { SuggestedPost } from "@/types/api/suggested-post";
+import { DisplayPost } from "@/types/api/display-post";
 import { TopUser } from "@/types/api/top-user";
 import { UserProfile } from "@/types/api/user-profile";
 import { Post } from "@/types/dummy-json/post";
@@ -36,7 +36,7 @@ export const topPosts = (
   posts: Post[],
   users: User[],
   limit: number
-): SuggestedPost[] => {
+): DisplayPost[] => {
   const normalizedUsers = Object.fromEntries(
     users.map((user) => [user.id, user])
   );
@@ -80,4 +80,31 @@ export const userProfile = (posts: Post[], user: User): UserProfile => {
     posts: postCount,
     likes: totalLikes,
   };
+};
+
+export const mapDisplayPosts = (
+  posts: Post[],
+  users: User[]
+): DisplayPost[] => {
+  const normalizedUsers = Object.fromEntries(
+    users.map((user) => [user.id, user])
+  );
+
+  return posts
+    .sort((a, b) => b.reactions.likes - a.reactions.likes)
+    .map((post) => {
+      const res: DisplayPost = {
+        id: post.id,
+        firstName: normalizedUsers[post.userId].firstName,
+        lastName: normalizedUsers[post.userId].lastName,
+        username: normalizedUsers[post.userId].username,
+        body: post.body,
+        userId: post.userId,
+        tags: post.tags,
+        views: post.views,
+        likes: post.reactions.likes,
+        dislikes: post.reactions.dislikes,
+      };
+      return res;
+    });
 };

@@ -5,10 +5,10 @@ import Tag from "./Tag";
 import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
-import { SuggestedPost } from "@/types/api/suggested-post";
+import { DisplayPost } from "@/types/api/display-post";
 import Link from "next/link";
 
-type PostCardProps = Omit<SuggestedPost, "id"> & {
+type PostCardProps = Omit<DisplayPost, "id"> & {
   className?: string;
 };
 

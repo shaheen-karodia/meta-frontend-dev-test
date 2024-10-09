@@ -1,5 +1,5 @@
 import { PaginatedAPI } from "../utils";
-import { SuggestedPost } from "./suggested-post";
+import { DisplayPost } from "./display-post";
 import { TopUser } from "./top-user";
 import { UserProfile } from "./user-profile";
 
@@ -11,7 +11,7 @@ type StandardError = {
 export type SuggestedPostsAPIResponse =
   | {
       success: true;
-      posts: SuggestedPost[];
+      posts: DisplayPost[];
     }
   | StandardError;
 

@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../utils";
 import { SuggestedPostsAPIResponse } from "@/types/api/responses";
 import axios from "axios";
-import { SuggestedPost } from "@/types/api/suggested-post";
+import { DisplayPost } from "@/types/api/display-post";
 
-export const fetchSuggestedPosts = async (): Promise<SuggestedPost[]> => {
+export const fetchSuggestedPosts = async (): Promise<DisplayPost[]> => {
   const response: SuggestedPostsAPIResponse = await axios
     .get(`/api/posts/suggested`)
     .then((res) => res.data);

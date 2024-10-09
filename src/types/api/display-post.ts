@@ -1,4 +1,4 @@
-export type SuggestedPost = {
+export type DisplayPost = {
   id: number;
   firstName: string;
   lastName: string;
