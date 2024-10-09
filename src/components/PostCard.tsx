@@ -6,24 +6,13 @@ import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
 import Skeleton from "./Skeleton";
+import { SuggestedPost } from "@/types/api/suggested-post";
 
-type PostCardProps = {
-  firstName: string;
-  lastName: string;
-  username: string;
-  tags: string[];
-  // views: number;
-  // reactions: {
-  //   dislikes: number;
-  //   likes: number;
-  // };
-  // image: string;
-  body: string;
+type PostCardProps = Omit<SuggestedPost, "id" | "userId"> & {
   className?: string;
   skeleton?: boolean;
 };
 
-//TODO: Type
 //TODO: Hover
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -34,6 +23,9 @@ const PostCard: React.FC<PostCardProps> = ({
   firstName,
   lastName,
   skeleton,
+  likes,
+  dislikes,
+  views,
 }) => {
   return (
     <div
@@ -96,9 +88,9 @@ const PostCard: React.FC<PostCardProps> = ({
         )}
         {!skeleton && (
           <>
-            <PostStat variant="like" number={20} className="mr-6" />
-            <PostStat variant="replies" number={20} className="mr-6" />
-            <PostStat variant="views" number={20} className="mr-6" />
+            <PostStat variant="like" number={likes} className="mr-6" />
+            <PostStat variant="replies" number={dislikes} className="mr-6" />
+            <PostStat variant="views" number={views} className="mr-6" />
           </>
         )}
       </div>

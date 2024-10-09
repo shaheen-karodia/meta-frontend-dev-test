@@ -7,36 +7,37 @@ import { NextPage } from "next";
 import ProfileCard from "@/components/ProfileCard";
 import usePostsQuery from "@/data/queries/usePostsQuery";
 import useUsersQuery from "@/data/queries/useUsersQuery";
+import useSuggestedPostsQuery from "@/data/queries/useSuggestedPostsQuery";
 
 const Feed: NextPage = () => {
   const postsQuery = usePostsQuery();
   const usersQuery = useUsersQuery();
+  const suggestedPostsQuery = useSuggestedPostsQuery();
 
   if (!postsQuery.data) return <div>Loading...</div>;
   if (!usersQuery.data) return <div>Loading...</div>;
+  if (!suggestedPostsQuery.data) return <div>Loading...</div>;
 
   const normalizedUsers = Object.fromEntries(
     usersQuery.data.users.map((user) => [user.id, user])
   );
 
-  const SuggestedPosts = [...postsQuery.data.posts]
-    .sort((a, b) => b.reactions.likes - a.reactions.likes)
-    .slice(0, 2)
-    .map((post) => {
-      const user = normalizedUsers[post.userId];
-      console.log(user);
-      return (
-        <PostCard
-          key={post.id}
-          className="mt-4"
-          tags={post.tags}
-          body={post.body}
-          firstName={"Placeholder"}
-          lastName={"Placeholder"}
-          username={"Placeholder"}
-        />
-      );
-    });
+  const SuggestedPosts = [...suggestedPostsQuery.data.posts].map((post) => {
+    return (
+      <PostCard
+        key={post.id}
+        className="mt-4"
+        tags={post.tags}
+        body={post.body}
+        firstName={post.firstName}
+        lastName={post.lastName}
+        username={post.username}
+        likes={post.likes}
+        dislikes={post.dislikes}
+        views={post.views}
+      />
+    );
+  });
 
   return (
     <div className="bg-gray-50">
