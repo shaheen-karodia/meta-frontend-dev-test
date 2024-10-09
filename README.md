@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Dev Assessment
+
+## Accessing hosted assessment:
+
+A hosted assessment is available at [https://meta-frontend-dev-test.vercel.app/](https://meta-frontend-dev-test.vercel.app/)
 
 ## Getting Started
 
-First, run the development server:
+To run this project locally, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ensure you have the following installed:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js (LTS version recommended)
+- npm
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
 
-## Learn More
+Navigate to the project directory:
 
-To learn more about Next.js, take a look at the following resources:
+`cd <your-project-name>`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`npm install`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Running the Development Server
 
-## Deploy on Vercel
+Start the development server with one of the following commands:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`npm run dev`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Assessment Tasks
+
+### Completed
+
+1. Build using Next.js and Tailwind CSS [DONE]
+2. Build responsive UIs [DONE]
+3. loading states [DONE]
+4. Cache data in storage [DONE] - use React Query with a default garbage collection of 5 minutes
+5. Commit your code to a GitHub repo [DONE]
+6. Deploy your app (for example: Netlify, Vercel) [DONE]
+7. Provide instructions in the repo README for running your application locally [DONE]
+
+### Skipped
+
+1. Handle error states [INCOMPLETE] - similar to how loading states are handled, destructured from fetch hook and conditionally rendered, not necessary to illusrate here
+2. Use https request caching [INCOMPLETE]
+3. Infinite Loading [INCOMPLETE] - Building blocks are here for paginated api,
+4. tests [IMCOMPLETE]
+5. ssr [INCOMPLETE] - fairly easy to acheive: sending a serialized version of the data to the client and using as initial data for the query
