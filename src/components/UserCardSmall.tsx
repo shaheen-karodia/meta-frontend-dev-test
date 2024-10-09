@@ -11,6 +11,7 @@ import { TopUser } from "@/types/api/top-user";
 type UserCardSmallProps = TopUser;
 
 export const UserCardSmall: React.FC<UserCardSmallProps> = ({
+  id,
   username,
   firstName,
   lastName,
@@ -18,7 +19,7 @@ export const UserCardSmall: React.FC<UserCardSmallProps> = ({
   return (
     <div className="border rounded-2xl border-gray-300 bg-white p-4 shadow-sm flex justify-between items-center">
       <div className="flex items-center">
-        <Avatar className="mr-3" />
+        <Avatar className="mr-3" link={`/profile/${id}`} />
         <div className="flex flex-col">
           <Heading size="h4">
             {firstName} {lastName}

@@ -5,16 +5,17 @@ import Tag from "./Tag";
 import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
-import Skeleton from "./skeletons/Skeleton";
 import { SuggestedPost } from "@/types/api/suggested-post";
+import Link from "next/link";
 
-type PostCardProps = Omit<SuggestedPost, "id" | "userId"> & {
+type PostCardProps = Omit<SuggestedPost, "id"> & {
   className?: string;
 };
 
 //TODO: Hover
 
 const PostCard: React.FC<PostCardProps> = ({
+  userId,
   className = "",
   tags,
   body,
@@ -30,11 +31,14 @@ const PostCard: React.FC<PostCardProps> = ({
       className={`flex flex-col border rounded-2xl border-gray-300 bg-white ${className}`}
     >
       <div className="p-4 flex items-start">
-        <Avatar className="mr-3" />
+        <Avatar className="mr-3" link={`/profile/${userId}`} />
         <div>
-          <Heading size="h4">
-            {firstName} {lastName}
-          </Heading>
+          <Link href={`/profile/${userId}`}>
+            <Heading size="h4">
+              {firstName} {lastName}
+            </Heading>
+          </Link>
+
           <BodyText element="p" size="small" className="text-secondary mb-3">
             @{username}
           </BodyText>

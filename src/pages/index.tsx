@@ -15,9 +15,6 @@ const Feed: NextPage = () => {
 
   const skeleton = !topUserQuery.data || !suggestedPostsQuery.data;
 
-  // const SuggestedPosts =
-  // });
-
   return (
     <div className="bg-gray-50">
       <TitleBar title="Feed" />
@@ -29,6 +26,7 @@ const Feed: NextPage = () => {
             ))
           : suggestedPostsQuery.data.map((post) => (
               <PostCard
+                userId={post.userId}
                 key={post.id}
                 className="mt-4"
                 tags={post.tags}

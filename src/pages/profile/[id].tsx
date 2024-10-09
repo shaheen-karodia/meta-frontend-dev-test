@@ -19,12 +19,13 @@ const Profile: NextPage = () => {
   const skeleton = !userProfileQuery.data;
   return (
     <div className="bg-gray-50">
-      <TitleBar title="Profile" backHref="/" />
+      <TitleBar title="Profile" />
       <Container>
         {skeleton ? (
           <ProfileCardSkeleton />
         ) : (
           <ProfileCard
+            id={userProfileQuery.data.id}
             firstName={userProfileQuery.data.firstName}
             lastName={userProfileQuery.data.lastName}
             username={userProfileQuery.data.username}

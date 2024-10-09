@@ -14,6 +14,7 @@ import { Button } from "./Button";
 // TODO: box shadow on the avataar
 
 interface ProfileCardProps {
+  id: number;
   firstName: string;
   lastName: string;
   username: string;
@@ -24,6 +25,7 @@ interface ProfileCardProps {
   likes: number;
 }
 const ProfileCard: React.FC<ProfileCardProps> = ({
+  id,
   firstName,
   lastName,
   username,
@@ -39,6 +41,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         className="absolute top-[-30px] left-1/2 -translate-x-2/4 sm:translate-x-0 sm:top-[40px] sm:left-6 border-8 border-white"
         width={120}
         height={120}
+        link={`/profile/${id}`}
       />
       <div
         className={`rounded-t-xl h-16 
