@@ -27,6 +27,7 @@ const ProfileCard: React.FC<ProfileCardProps> = () => {
           profile-card-gradient
         `}
       ></div>
+
       <div className="flex flex-col items-center sm:items-start sm:ml-[168px] m-6">
         <Heading size="h1" className="mb-2">
           Emily Johnson

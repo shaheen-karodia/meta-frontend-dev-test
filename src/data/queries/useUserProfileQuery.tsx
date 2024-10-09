@@ -6,7 +6,7 @@ import { UserProfile } from "@/types/api/user-profile";
 
 export const fetchUserProfile = async (id: string): Promise<UserProfile> => {
   const response: UserProfileAPIResponse = await axios
-    .get(`/api/user/${id}`)
+    .get(`/api/users/${id}/profile`)
     .then((res) => res.data);
 
   if (response.success) {
@@ -18,7 +18,7 @@ export const fetchUserProfile = async (id: string): Promise<UserProfile> => {
 
 const useUserProfileQuery = () => {
   return useQuery({
-    queryKey: QUERY_KEYS.TOP_USERS,
+    queryKey: [QUERY_KEYS.USER, "1"],
     queryFn: () => fetchUserProfile("1"),
   });
 };

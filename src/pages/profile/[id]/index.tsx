@@ -13,20 +13,17 @@ import Heading from "@/components/typography/Heading";
 import PostCard from "@/components/PostCard";
 import UserCardSmall from "@/components/UserCardSmall";
 import ProfileCardSkeleton from "@/components/skeletons/ProfileCardSkeleton";
-
-/**
- * FETCHERS
- */
-const fetchUserPosts = (id: string): Promise<PostsAPIResponse> =>
-  axios.get(`${BASE_URL}/users/${id}/posts`).then((res) => res.data);
+import useUserProfileQuery from "@/data/queries/useUserProfileQuery";
 
 const Profile: NextPage = () => {
+  const userProfileQuery = useUserProfileQuery();
+
+  const skeleton = !userProfileQuery.data;
   return (
     <div className="bg-gray-50">
       <TitleBar title="Profile" />
       <Container>
-        <ProfileCard />
-        <ProfileCardSkeleton />
+        {skeleton ? <ProfileCardSkeleton /> : <ProfileCard />}
       </Container>
     </div>
   );
