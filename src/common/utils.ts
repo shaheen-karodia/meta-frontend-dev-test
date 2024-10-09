@@ -1,4 +1,5 @@
 import { SuggestedPost } from "@/types/api/suggested-post";
+import { TopUser } from "@/types/api/top-user";
 import { Post } from "@/types/dummy-json/post";
 import { User } from "@/types/dummy-json/user";
 
@@ -6,7 +7,7 @@ export const topUsers = (
   posts: Post[],
   users: User[],
   limit: number
-): User[] => {
+): TopUser[] => {
   const userIdsRankedByPostCount = posts.reduce<Record<string, number>>(
     (acc, post) => {
       acc[post.userId] = (acc[post.userId] || 0) + 1;
@@ -21,7 +22,13 @@ export const topUsers = (
         (userIdsRankedByPostCount[b.id] || 0) -
         (userIdsRankedByPostCount[a.id] || 0)
     )
-    .slice(0, limit);
+    .slice(0, limit)
+    .map((user) => ({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      username: user.username,
+    }));
 };
 
 export const topPosts = (
