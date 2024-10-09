@@ -6,17 +6,29 @@ import UserCardSmall from "@/components/UserCardSmall";
 import { NextPage } from "next";
 import ProfileCard from "@/components/ProfileCard";
 import usePostsQuery from "@/data/queries/usePostsQuery";
-import useUsersQuery from "@/data/queries/useUsersQuery";
 import useSuggestedPostsQuery from "@/data/queries/useSuggestedPostsQuery";
+import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 
 const Feed: NextPage = () => {
   const postsQuery = usePostsQuery();
-  const usersQuery = useUsersQuery();
+  const topUserQuery = useTopUsersQuery();
   const suggestedPostsQuery = useSuggestedPostsQuery();
 
   if (!postsQuery.data) return <div>Loading...</div>;
-  if (!usersQuery.data) return <div>Loading...</div>;
+  if (!topUserQuery.data) return <div>Loading...</div>;
   if (!suggestedPostsQuery.data) return <div>Loading...</div>;
+
+  const TopUsers = topUserQuery.data.map((user) => {
+    return (
+      <UserCardSmall
+        id={user.id}
+        key={user.id}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        username={user.username}
+      />
+    );
+  });
 
   const SuggestedPosts = suggestedPostsQuery.data.map((post) => {
     return (
@@ -41,11 +53,16 @@ const Feed: NextPage = () => {
       <Container>
         <Heading size="h2">Suggested Posts</Heading>
         {SuggestedPosts}
-        <Heading size="h2">Who to Follow</Heading>
-        {/* <UserCardSmall />
-        <UserCardSmall />
-        <UserCardSmall /> */}
-        <Heading size="h2">Recent</Heading>
+        <Heading size="h2" className="mt-12">
+          Who to Follow
+        </Heading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          {TopUsers}
+        </div>
+
+        <Heading size="h2" className="mt-12">
+          Recent
+        </Heading>
         {/* <PostCard tags={[]} body="" />
         <PostCard tags={[]} body="" />
         <PostCard tags={[]} body="" />
