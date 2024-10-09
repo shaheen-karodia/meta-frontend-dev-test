@@ -4,7 +4,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "@/common/constants";
 import { PostsAPIResponse } from "@/types/api";
 import { QUERY_KEYS } from "@/data/utils";
-import useUsersQuery from "@/data/queries/useUsersQuery";
+import useUsersQuery from "@/data/queries/useUserProfileQuery";
 import usePostsQuery from "@/data/queries/usePostsQuery";
 import Container from "@/components/Container";
 import ProfileCard from "@/components/ProfileCard";
