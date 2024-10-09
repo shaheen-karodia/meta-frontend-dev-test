@@ -7,12 +7,6 @@ import CompanyDepartment from "./CompanyDepartment";
 import Stat from "./Stat";
 import { Button } from "./Button";
 
-// TODO: TYPE
-// TODO: SKELETON
-// TODO: Hoever
-// TODO: How to externalize the linear gradient
-// TODO: box shadow on the avataar
-
 interface ProfileCardProps {
   id: number;
   firstName: string;

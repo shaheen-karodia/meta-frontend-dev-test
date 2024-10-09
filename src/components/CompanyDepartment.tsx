@@ -2,16 +2,14 @@ import { cva } from "cva";
 import React from "react";
 import Heading from "./typography/Heading";
 
-//TODO: SPLIT OUT COLOR VARIANTS CORRECTLY FOR THESE COMPONENTS
-
 const textColor = cva([], {
   variants: {
     color: {
       purple: "text-purple-700",
       red: "text-red-700",
       orange: "text-orange-700",
-      turquoise: "bg-teal-700",
-      blue: "text-blue-700",
+      turquoise: "text-teal-700",
+      blue: "text-blue-600",
     },
   },
   defaultVariants: {

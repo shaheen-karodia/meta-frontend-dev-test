@@ -12,8 +12,6 @@ type PostCardProps = Omit<SuggestedPost, "id"> & {
   className?: string;
 };
 
-//TODO: Hover
-
 const PostCard: React.FC<PostCardProps> = ({
   userId,
   className = "",
