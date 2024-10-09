@@ -1,5 +1,6 @@
 import { SuggestedPost } from "./suggested-post";
 import { TopUser } from "./top-user";
+import { UserProfile } from "./user-profile";
 
 type StandardError = {
   success: false;
@@ -17,5 +18,12 @@ export type TopUsersAPIResponse =
   | {
       success: true;
       users: TopUser[];
+    }
+  | StandardError;
+
+export type UserProfileAPIResponse =
+  | {
+      success: true;
+      user: UserProfile;
     }
   | StandardError;

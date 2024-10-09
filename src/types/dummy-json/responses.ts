@@ -14,3 +14,5 @@ export type PostsAPIResponse = PaginatedAPI & {
 export type UsersAPIResponse = PaginatedAPI & {
   users: User[];
 };
+
+export type UserAPIResponse = User;

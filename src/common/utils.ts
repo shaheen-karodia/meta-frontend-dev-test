@@ -1,5 +1,6 @@
 import { SuggestedPost } from "@/types/api/suggested-post";
 import { TopUser } from "@/types/api/top-user";
+import { UserProfile } from "@/types/api/user-profile";
 import { Post } from "@/types/dummy-json/post";
 import { User } from "@/types/dummy-json/user";
 
@@ -55,4 +56,28 @@ export const topPosts = (
       likes: post.reactions.likes,
       dislikes: post.reactions.dislikes,
     }));
+};
+
+export const userProfile = (posts: Post[], user: User): UserProfile => {
+  let postCount = 0;
+  let totalLikes = 0;
+
+  for (const post of posts) {
+    if (post.userId === user.id) {
+      postCount += 1;
+      totalLikes += post.reactions.likes;
+    }
+  }
+
+  return {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    state: user.address.state,
+    country: user.address.country,
+    department: user.company.department,
+    posts: postCount,
+    likes: totalLikes,
+  };
 };
