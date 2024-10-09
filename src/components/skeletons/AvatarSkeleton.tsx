@@ -1,24 +1,20 @@
-import Image from "next/image";
+import Skeleton from "./Skeleton";
 
-interface AvatarProps {
+type AvatarSkeletonProps = {
   className?: string;
   width?: number;
   height?: number;
-}
-export const Avatar: React.FC<AvatarProps> = ({
+};
+export const AvatarSkeleton: React.FC<AvatarSkeletonProps> = ({
   className = "",
   width = 40,
   height = 40,
 }) => {
   return (
-    <Image
-      src="/avatar.png"
-      alt="User Avatar"
+    <Skeleton
       width={width}
       height={height}
       className={`rounded-full ${className}`}
     />
   );
 };
-
-export default Avatar;

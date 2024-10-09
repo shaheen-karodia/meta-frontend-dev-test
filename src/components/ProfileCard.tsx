@@ -6,7 +6,7 @@ import Location from "./Location";
 import CompanyDepartment from "./CompanyDepartment";
 import Stat from "./Stat";
 import { Button } from "./Button";
-import Skeleton from "./Skeleton";
+import Skeleton from "./skeletons/Skeleton";
 
 // TODO: TYPE
 // TODO: SKELETON

@@ -1,7 +1,7 @@
 import React from "react";
 import BodyText from "./typography/BodyText";
 import Heading from "./typography/Heading";
-import Skeleton from "./Skeleton";
+import Skeleton from "./skeletons/Skeleton";
 
 interface StatProps {
   number: number;

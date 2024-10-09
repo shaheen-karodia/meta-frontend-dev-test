@@ -5,7 +5,7 @@ import Tag from "./Tag";
 import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import Heading from "./typography/Heading";
-import Skeleton from "./Skeleton";
+import Skeleton from "./skeletons/Skeleton";
 import { SuggestedPost } from "@/types/api/suggested-post";
 
 type PostCardProps = Omit<SuggestedPost, "id" | "userId"> & {
@@ -29,7 +29,7 @@ const PostCard: React.FC<PostCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col border rounded-2xl border-gray-300 ${className}`}
+      className={`flex flex-col border rounded-2xl border-gray-300 bg-white ${className}`}
     >
       <div className="p-4 flex items-start">
         <Avatar className="mr-3" skeleton={skeleton} />
