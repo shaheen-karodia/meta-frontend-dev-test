@@ -15,8 +15,8 @@ async function handler(_req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(topUsers(posts, users, 4));
   } catch (error) {
-    console.error("Error fetching suggested users", error);
-    res.status(500).json({ error: "Failed to fetch suggested users" });
+    console.error("Error fetching top users", error);
+    res.status(500).json({ error: "Failed to fetch top users" });
   }
 }
 

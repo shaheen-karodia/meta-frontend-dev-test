@@ -22,3 +22,15 @@ export const topUsers = (
     )
     .slice(0, limit);
 };
+
+//TODO HOW TO DEAL WITH THE RESULT OF POST + USER
+
+export const topPosts = (
+  posts: Post[],
+  users: User[],
+  limit: number
+): Post[] => {
+  return posts
+    .sort((a, b) => b.reactions.likes - a.reactions.likes)
+    .slice(0, limit);
+};
