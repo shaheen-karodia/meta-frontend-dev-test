@@ -18,11 +18,7 @@ const Feed: NextPage = () => {
   if (!usersQuery.data) return <div>Loading...</div>;
   if (!suggestedPostsQuery.data) return <div>Loading...</div>;
 
-  const normalizedUsers = Object.fromEntries(
-    usersQuery.data.users.map((user) => [user.id, user])
-  );
-
-  const SuggestedPosts = [...suggestedPostsQuery.data.posts].map((post) => {
+  const SuggestedPosts = suggestedPostsQuery.data.map((post) => {
     return (
       <PostCard
         key={post.id}
