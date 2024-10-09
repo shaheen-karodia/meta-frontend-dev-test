@@ -4,7 +4,6 @@ import TitleBar from "@/components/TitleBar";
 import Heading from "@/components/typography/Heading";
 import UserCardSmall from "@/components/UserCardSmall";
 import { NextPage } from "next";
-import ProfileCard from "@/components/ProfileCard";
 import useSuggestedPostsQuery from "@/data/queries/useSuggestedPostsQuery";
 import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 import { UserCardSkeleton } from "@/components/skeletons/UserCardSkeleton";

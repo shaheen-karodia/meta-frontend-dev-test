@@ -3,15 +3,10 @@ import axios from "axios";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "@/common/constants";
 import { PostsAPIResponse } from "@/types/api";
-import { QUERY_KEYS } from "@/data/utils";
-import useUsersQuery from "@/data/queries/useUserProfileQuery";
-import usePostsQuery from "@/data/queries/usePostsQuery";
+
 import Container from "@/components/Container";
 import ProfileCard from "@/components/ProfileCard";
 import TitleBar from "@/components/TitleBar";
-import Heading from "@/components/typography/Heading";
-import PostCard from "@/components/PostCard";
-import UserCardSmall from "@/components/UserCardSmall";
 import ProfileCardSkeleton from "@/components/skeletons/ProfileCardSkeleton";
 import useUserProfileQuery from "@/data/queries/useUserProfileQuery";
 import { useRouter } from "next/router";
@@ -24,7 +19,7 @@ const Profile: NextPage = () => {
   const skeleton = !userProfileQuery.data;
   return (
     <div className="bg-gray-50">
-      <TitleBar title="Profile" />
+      <TitleBar title="Profile" backHref="/" />
       <Container>
         {skeleton ? (
           <ProfileCardSkeleton />
