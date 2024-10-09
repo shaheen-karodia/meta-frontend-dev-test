@@ -4,6 +4,7 @@ import BodyText from "./typography/BodyText";
 import Avatar from "./Avatar";
 import { Button } from "./Button";
 import { TopUser } from "@/types/api/top-user";
+import Link from "next/link";
 
 type UserCardSmallProps = TopUser;
 
@@ -18,9 +19,11 @@ export const UserCardSmall: React.FC<UserCardSmallProps> = ({
       <div className="flex items-center">
         <Avatar className="mr-3" link={`/profile/${id}`} />
         <div className="flex flex-col">
-          <Heading size="h4">
-            {firstName} {lastName}
-          </Heading>
+          <Link href={`/profile/${id}`}>
+            <Heading size="h4">
+              {firstName} {lastName}
+            </Heading>
+          </Link>
           <BodyText size="small" element="p" className="text-secondary">
             @{username}
           </BodyText>
