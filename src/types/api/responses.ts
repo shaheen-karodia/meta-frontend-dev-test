@@ -32,7 +32,7 @@ export type UserProfileAPIResponse =
 export type RecentPostsAPIResponse =
   | {
       success: true;
-      posts: UserProfile;
+      posts: DisplayPost[];
       meta: PaginatedAPI;
     }
   | StandardError;

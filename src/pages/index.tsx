@@ -8,12 +8,17 @@ import useSuggestedPostsQuery from "@/data/queries/useSuggestedPostsQuery";
 import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 import { UserCardSkeleton } from "@/components/skeletons/UserCardSkeleton";
 import PostCardSkeleton from "@/components/skeletons/PostCardSkeleton";
+import useRecentPostsQuery from "@/data/queries/useRecentPostsQuery";
 
 const Feed: NextPage = () => {
   const topUserQuery = useTopUsersQuery();
   const suggestedPostsQuery = useSuggestedPostsQuery();
+  const recentPostsQuery = useRecentPostsQuery(0);
 
-  const skeleton = !topUserQuery.data || !suggestedPostsQuery.data;
+  const skeleton =
+    !topUserQuery.data || !suggestedPostsQuery.data || !recentPostsQuery.data; //TODO not the correct way
+
+  // const { isPending, isError, error, data, isFetching, isPlaceholderData } =
 
   return (
     <div className="bg-gray-50">
@@ -62,10 +67,36 @@ const Feed: NextPage = () => {
         <Heading size="h2" className="mt-12">
           Recent
         </Heading>
-        {/* <PostCard tags={[]} body="" />
-        <PostCard tags={[]} body="" />
-        <PostCard tags={[]} body="" />
-        <PostCard tags={[]} body="" /> */}
+        {skeleton
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <PostCardSkeleton key={i} className="mt-4" />
+            ))
+          : recentPostsQuery.data.map((post) => (
+              <PostCard
+                userId={post.userId}
+                key={post.id}
+                className="mt-4"
+                tags={post.tags}
+                body={post.body}
+                firstName={post.firstName}
+                lastName={post.lastName}
+                username={post.username}
+                likes={post.likes}
+                dislikes={post.dislikes}
+                views={post.views}
+              />
+            ))}
+        {/* <button
+          onClick={() => {
+            if (!isPlaceholderData && recentPostsQuery.data.) {
+              setPage((old) => old + 1);
+            }
+          }}
+          // Disable the Next Page button until we know a next page is available
+          // disabled={isPlaceholderData || !data?.hasMore}
+        >
+          Next Page
+        </button> */}
       </Container>
     </div>
   );
