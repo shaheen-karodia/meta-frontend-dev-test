@@ -20,6 +20,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         alt="User Avatar"
         width={width}
         height={height}
+        style={{ width: `${width}px`, height: `${height}px` }}
         className={`rounded-full ${className}`}
       />
     </Link>
