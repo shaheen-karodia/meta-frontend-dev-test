@@ -16,10 +16,11 @@ export const fetchUserProfile = async (id: string): Promise<UserProfile> => {
   }
 };
 
-const useUserProfileQuery = () => {
+const useUserProfileQuery = (id: string | undefined) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.USER, "1"],
-    queryFn: () => fetchUserProfile("1"),
+    queryKey: [QUERY_KEYS.USER, id],
+    queryFn: () => fetchUserProfile(id as string),
+    enabled: !!id,
   });
 };
 

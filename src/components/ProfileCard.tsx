@@ -13,8 +13,26 @@ import { Button } from "./Button";
 // TODO: How to externalize the linear gradient
 // TODO: box shadow on the avataar
 
-interface ProfileCardProps {}
-const ProfileCard: React.FC<ProfileCardProps> = () => {
+interface ProfileCardProps {
+  firstName: string;
+  lastName: string;
+  username: string;
+  state: string;
+  country: string;
+  department: string;
+  posts: number;
+  likes: number;
+}
+const ProfileCard: React.FC<ProfileCardProps> = ({
+  firstName,
+  lastName,
+  username,
+  state,
+  country,
+  department,
+  posts,
+  likes,
+}) => {
   return (
     <div className="border rounded-xl border-gray-300 relative">
       <Avatar
@@ -30,22 +48,22 @@ const ProfileCard: React.FC<ProfileCardProps> = () => {
 
       <div className="flex flex-col items-center sm:items-start sm:ml-[168px] m-6">
         <Heading size="h1" className="mb-2">
-          Emily Johnson
+          {firstName} {lastName}
         </Heading>
 
         <div className="flex mb-3">
           <BodyText size="regular" element="p" className="text-secondary mr-2">
-            @emily
+            @{username}
           </BodyText>
-          <Location text="San Francisco, CA" />
+          <Location text={`${state}, ${country}`} />
         </div>
         <CompanyDepartment color="blue" className="mb-6">
-          Engineering
+          {department}
         </CompanyDepartment>
 
         <div className="flex">
-          <Stat number={24} label="Posts" className="mr-6" />
-          <Stat number={20} label="Likes" />
+          <Stat number={posts} label="Posts" className="mr-6" />
+          <Stat number={likes} label="Likes" />
         </div>
       </div>
 

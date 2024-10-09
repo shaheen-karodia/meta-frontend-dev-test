@@ -14,16 +14,32 @@ import PostCard from "@/components/PostCard";
 import UserCardSmall from "@/components/UserCardSmall";
 import ProfileCardSkeleton from "@/components/skeletons/ProfileCardSkeleton";
 import useUserProfileQuery from "@/data/queries/useUserProfileQuery";
+import { useRouter } from "next/router";
 
 const Profile: NextPage = () => {
-  const userProfileQuery = useUserProfileQuery();
+  const router = useRouter();
+  const { id } = router.query;
+  const userProfileQuery = useUserProfileQuery(id as string);
 
   const skeleton = !userProfileQuery.data;
   return (
     <div className="bg-gray-50">
       <TitleBar title="Profile" />
       <Container>
-        {skeleton ? <ProfileCardSkeleton /> : <ProfileCard />}
+        {skeleton ? (
+          <ProfileCardSkeleton />
+        ) : (
+          <ProfileCard
+            firstName={userProfileQuery.data.firstName}
+            lastName={userProfileQuery.data.lastName}
+            username={userProfileQuery.data.username}
+            state={userProfileQuery.data.state}
+            country={userProfileQuery.data.country}
+            department={userProfileQuery.data.department}
+            posts={userProfileQuery.data.posts}
+            likes={userProfileQuery.data.likes}
+          />
+        )}
       </Container>
     </div>
   );
