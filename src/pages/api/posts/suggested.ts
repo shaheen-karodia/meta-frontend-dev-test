@@ -1,6 +1,9 @@
 import api from "@/api/api";
 import { topPosts } from "@/common/utils";
-import { PostsAPIResponse, UsersAPIResponse } from "@/types/api";
+import {
+  PostsAPIResponse,
+  UsersAPIResponse,
+} from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(_req: NextApiRequest, res: NextApiResponse) {

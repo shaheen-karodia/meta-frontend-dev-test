@@ -1,5 +1,8 @@
 import api from "@/api/api";
-import { PostsAPIResponse, UsersAPIResponse } from "@/types/api";
+import {
+  PostsAPIResponse,
+  UsersAPIResponse,
+} from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // TODO combine results of posts and users into a cleaner response

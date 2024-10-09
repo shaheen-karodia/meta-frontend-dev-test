@@ -1,5 +1,5 @@
-import { Post } from "@/types/post";
-import { User } from "@/types/user";
+import { Post } from "@/types/dummy-json/post";
+import { User } from "@/types/dummy-json/user";
 
 export const topUsers = (
   posts: Post[],
