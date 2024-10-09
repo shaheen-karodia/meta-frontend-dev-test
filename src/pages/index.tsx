@@ -8,29 +8,15 @@ import ProfileCard from "@/components/ProfileCard";
 import useSuggestedPostsQuery from "@/data/queries/useSuggestedPostsQuery";
 import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 import { UserCardSkeleton } from "@/components/skeletons/UserCardSkeleton";
+import PostCardSkeleton from "@/components/skeletons/PostCardSkeleton";
 
 const Feed: NextPage = () => {
   const topUserQuery = useTopUsersQuery();
   const suggestedPostsQuery = useSuggestedPostsQuery();
 
-  const skeleton = !topUserQuery.data;
+  const skeleton = !topUserQuery.data || !suggestedPostsQuery.data;
 
-  // const SuggestedPosts = suggestedPostsQuery.data.map((post) => {
-  //   return (
-  //     <PostCard
-  //       skeleton={skeleton}
-  //       key={post.id}
-  //       className="mt-4"
-  //       tags={post.tags}
-  //       body={post.body}
-  //       firstName={post.firstName}
-  //       lastName={post.lastName}
-  //       username={post.username}
-  //       likes={post.likes}
-  //       dislikes={post.dislikes}
-  //       views={post.views}
-  //     />
-  //   );
+  // const SuggestedPosts =
   // });
 
   return (
@@ -38,7 +24,25 @@ const Feed: NextPage = () => {
       <TitleBar title="Feed" />
       <Container>
         <Heading size="h2">Suggested Posts</Heading>
-        {/* {SuggestedPosts} */}
+        {skeleton
+          ? Array.from({ length: 2 }).map((_, i) => (
+              <PostCardSkeleton key={i} className="mt-4" />
+            ))
+          : suggestedPostsQuery.data.map((post) => (
+              <PostCard
+                key={post.id}
+                className="mt-4"
+                tags={post.tags}
+                body={post.body}
+                firstName={post.firstName}
+                lastName={post.lastName}
+                username={post.username}
+                likes={post.likes}
+                dislikes={post.dislikes}
+                views={post.views}
+              />
+            ))}
+
         <Heading size="h2" className="mt-12">
           Who to Follow
         </Heading>
