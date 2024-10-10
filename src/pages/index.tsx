@@ -15,13 +15,15 @@ import { useInView } from "react-intersection-observer";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import ErrorCard from "@/components/ErrorCard";
 
-// TODO: Place in own File
-const RecentPosts = () => {
+const Feed: NextPage = () => {
   const { ref, inView } = useInView();
+  const { data: topUserData, status: topUserStatus } = useTopUsersQuery();
+  const { data: suggestedPostData, status: suggestedPostStatus } =
+    useSuggestedPostsQuery();
+
   const {
-    status,
-    data,
-    error,
+    status: recentPostStatus,
+    data: recentPostData,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -33,107 +35,104 @@ const RecentPosts = () => {
     }
   }, [fetchNextPage, inView]);
 
-  return (
-    <div>
-      {status === "pending" ? (
-        Array.from({ length: 4 }).map((_, i) => (
-          <PostCardSkeleton key={i} className="mt-4" />
-        ))
-      ) : status === "error" ? (
-        <span>Error: {error.message}</span> // TODO: Error handling
-      ) : (
-        <>
-          {data.pages.map((page) => (
-            <React.Fragment key={page.pagination.cursor}>
-              {page.posts.map((post) => (
-                <PostCard
-                  userId={post.userId}
-                  key={post.id}
-                  className="mt-4"
-                  tags={post.tags}
-                  body={post.body}
-                  firstName={post.firstName}
-                  lastName={post.lastName}
-                  username={post.username}
-                  likes={post.likes}
-                  dislikes={post.dislikes}
-                  views={post.views}
-                />
-              ))}
-            </React.Fragment>
-          ))}
-          <div>
-            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
-              {isFetchingNextPage
-                ? "Loading more..."
-                : hasNextPage
-                ? "Load newer"
-                : "No more posts"}
-            </LoadingIndicator>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
-
-const Feed: NextPage = () => {
-  const topUserQuery = useTopUsersQuery();
-  const suggestedPostsQuery = useSuggestedPostsQuery();
-  const recentQuery = useRecentPostsQuery();
-
   const skeleton =
-    !topUserQuery.data || !suggestedPostsQuery.data || !recentQuery.data;
+    topUserStatus === "pending" ||
+    suggestedPostStatus === "pending" ||
+    recentPostStatus === "pending";
 
   return (
     <div className="bg-gray-50">
       <TitleBar title="Feed" />
       <Container>
-        <ErrorCard />
         <Heading size="h2">Suggested Posts</Heading>
-        {skeleton
-          ? Array.from({ length: 2 }).map((_, i) => (
-              <PostCardSkeleton key={i} className="mt-4" />
-            ))
-          : suggestedPostsQuery.data.map((post) => (
-              <PostCard
-                userId={post.userId}
-                key={post.id}
-                className="mt-4"
-                tags={post.tags}
-                body={post.body}
-                firstName={post.firstName}
-                lastName={post.lastName}
-                username={post.username}
-                likes={post.likes}
-                dislikes={post.dislikes}
-                views={post.views}
-              />
-            ))}
+        {skeleton ? (
+          Array.from({ length: 2 }).map((_, i) => (
+            <PostCardSkeleton key={i} className="mt-4" />
+          ))
+        ) : suggestedPostStatus === "error" ? (
+          <ErrorCard /> // TODO: Error handling
+        ) : (
+          suggestedPostData.map((post) => (
+            <PostCard
+              userId={post.userId}
+              key={post.id}
+              className="mt-4"
+              tags={post.tags}
+              body={post.body}
+              firstName={post.firstName}
+              lastName={post.lastName}
+              username={post.username}
+              likes={post.likes}
+              dislikes={post.dislikes}
+              views={post.views}
+            />
+          ))
+        )}
 
         <Heading size="h2" className="mt-12">
           Who to Follow
         </Heading>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          {skeleton
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <UserCardSkeleton key={i} />
-              ))
-            : topUserQuery.data.map((user) => (
-                <UserCardSmall
-                  id={user.id}
-                  key={user.id}
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                  username={user.username}
-                />
-              ))}
+          {skeleton ? (
+            Array.from({ length: 4 }).map((_, i) => (
+              <UserCardSkeleton key={i} />
+            ))
+          ) : topUserStatus === "error" ? (
+            <ErrorCard /> // TODO: Error handling
+          ) : (
+            topUserData.map((user) => (
+              <UserCardSmall
+                id={user.id}
+                key={user.id}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                username={user.username}
+              />
+            ))
+          )}
         </div>
 
         <Heading size="h2" className="mt-12">
           Recent
         </Heading>
-        <RecentPosts />
+        {skeleton ? (
+          Array.from({ length: 4 }).map((_, i) => (
+            <PostCardSkeleton key={i} className="mt-4" />
+          ))
+        ) : recentPostStatus === "error" ? (
+          <ErrorCard /> // TODO: Error handling
+        ) : (
+          <>
+            {recentPostData.pages.map((page) => (
+              <React.Fragment key={page.pagination.cursor}>
+                {page.posts.map((post) => (
+                  <PostCard
+                    userId={post.userId}
+                    key={post.id}
+                    className="mt-4"
+                    tags={post.tags}
+                    body={post.body}
+                    firstName={post.firstName}
+                    lastName={post.lastName}
+                    username={post.username}
+                    likes={post.likes}
+                    dislikes={post.dislikes}
+                    views={post.views}
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+            {recentPostData && (
+              <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
+                {isFetchingNextPage
+                  ? "Loading more..."
+                  : hasNextPage
+                  ? "Load newer"
+                  : "No more posts"}
+              </LoadingIndicator>
+            )}
+          </>
+        )}
       </Container>
     </div>
   );
