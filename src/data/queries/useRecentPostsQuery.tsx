@@ -1,15 +1,15 @@
 import { RecentPostsAPIResponse } from "@/types/api/responses";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { QUERY_KEYS } from "../utils";
 
-export const fetchRecentPosts = async (
-  skip: number
-): Promise<Extract<RecentPostsAPIResponse, { success: true }>> => {
+export const fetchRecentPosts = async ({
+  pageParam,
+}: {
+  pageParam: number;
+}): Promise<Extract<RecentPostsAPIResponse, { success: true }>> => {
   const response: RecentPostsAPIResponse = await axios
-    .get(`/api/posts/recent`, {
-      params: { skip },
-    })
+    .get(`/api/posts/recent?cursor=${pageParam}`)
     .then((res) => res.data);
 
   if (response.success) {
@@ -19,11 +19,12 @@ export const fetchRecentPosts = async (
   }
 };
 
-const useRecentPostsQuery = (page: number) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.POSTS, "recent", page],
-    queryFn: () => fetchRecentPosts(page),
-    placeholderData: keepPreviousData,
+const useRecentPostsQuery = () => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.POSTS, "recent"],
+    queryFn: fetchRecentPosts,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.pagination.nextId,
   });
 };
 

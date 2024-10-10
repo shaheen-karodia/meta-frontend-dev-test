@@ -7,38 +7,40 @@ import {
 } from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-async function handler(
+const handler = async (
   req: NextApiRequest,
   res: NextApiResponse<RecentPostsAPIResponse>
-) {
-  const LIMIT = 5;
-  const skip = req.query.skip ?? ("0" as string);
+) => {
+  const PAGE_SIZE = 5;
+
   try {
+    const cursor = parseInt(req.query.cursor as string) || 0;
+
     const responses = await Promise.all([
-      api.get<PostsAPIResponse>(`/posts?limit=${LIMIT}&skip=${skip}`),
+      api.get<PostsAPIResponse>(`/posts?limit=${PAGE_SIZE}&skip=${cursor}`),
       api.get<UsersAPIResponse>("/users?limit=0"),
     ]);
 
-    const posts = responses[0].data.posts;
+    const { posts, total, skip } = responses[0].data;
     const users = responses[1].data.users;
 
-    const pagination = {
-      total: responses[0].data.total,
-      skip: responses[0].data.skip,
-      limit: LIMIT,
-    };
+    const nextId = cursor + PAGE_SIZE < total ? skip + PAGE_SIZE : null;
 
     res.status(200).json({
       success: true,
       posts: mapDisplayPosts(posts, users),
-      meta: pagination,
+      pagination: {
+        nextId: nextId,
+        total: total,
+        cursor: skip,
+      },
     });
   } catch (error) {
-    console.error("Error fetching suggested posts", error);
+    console.error("Error fetching recent posts", error);
     res
       .status(500)
-      .json({ success: false, error: "Failed to fetch suggested posts" });
+      .json({ success: false, error: "Failed to fetch recent posts" });
   }
-}
+};
 
 export default handler;

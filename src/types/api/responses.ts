@@ -1,4 +1,3 @@
-import { PaginatedAPI } from "../utils";
 import { DisplayPost } from "./display-post";
 import { TopUser } from "./top-user";
 import { UserProfile } from "./user-profile";
@@ -6,6 +5,12 @@ import { UserProfile } from "./user-profile";
 type StandardError = {
   success: false;
   error: string;
+};
+
+type PaginatedAPI = {
+  total: number;
+  nextId: number | null;
+  cursor: number;
 };
 
 export type SuggestedPostsAPIResponse =
@@ -33,6 +38,6 @@ export type RecentPostsAPIResponse =
   | {
       success: true;
       posts: DisplayPost[];
-      meta: PaginatedAPI;
+      pagination: PaginatedAPI;
     }
   | StandardError;

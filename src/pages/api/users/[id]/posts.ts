@@ -7,6 +7,7 @@ import {
 } from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+// TODO deal with user post pagination
 async function handler(
   req: NextApiRequest,
   res: NextApiResponse<RecentPostsAPIResponse>
@@ -34,7 +35,7 @@ async function handler(
     res.status(200).json({
       success: true,
       posts: mapDisplayPosts(posts, [user]),
-      meta: pagination,
+      pagination,
     });
   } catch (error) {
     console.error("Error fetching user posts", error);
