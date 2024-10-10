@@ -14,7 +14,6 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import ErrorCard from "@/components/ErrorCard";
-import { isError } from "util";
 
 const Feed: NextPage = () => {
   const { ref, inView } = useInView();
@@ -27,7 +26,7 @@ const Feed: NextPage = () => {
     data: recentPostData,
     isFetchingNextPage,
     isFetchNextPageError,
-    isError,
+
     fetchNextPage,
     hasNextPage,
   } = useRecentPostsQuery();
