@@ -14,6 +14,7 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import ErrorCard from "@/components/ErrorCard";
+import { isError } from "util";
 
 const Feed: NextPage = () => {
   const { ref, inView } = useInView();
@@ -25,6 +26,8 @@ const Feed: NextPage = () => {
     status: recentPostStatus,
     data: recentPostData,
     isFetchingNextPage,
+    isFetchNextPageError,
+    isError,
     fetchNextPage,
     hasNextPage,
   } = useRecentPostsQuery();
@@ -50,7 +53,11 @@ const Feed: NextPage = () => {
             <PostCardSkeleton key={i} className="mt-4" />
           ))
         ) : suggestedPostStatus === "error" ? (
-          <ErrorCard /> // TODO: Error handling
+          <ErrorCard
+            title="Error loading posts"
+            description="We are sorry but this is for the test"
+            className="mt-3"
+          />
         ) : (
           suggestedPostData.map((post) => (
             <PostCard
@@ -72,15 +79,22 @@ const Feed: NextPage = () => {
         <Heading size="h2" className="mt-12">
           Who to Follow
         </Heading>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          {skeleton ? (
-            Array.from({ length: 4 }).map((_, i) => (
+
+        {skeleton ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            {Array.from({ length: 4 }).map((_, i) => (
               <UserCardSkeleton key={i} />
-            ))
-          ) : topUserStatus === "error" ? (
-            <ErrorCard /> // TODO: Error handling
-          ) : (
-            topUserData.map((user) => (
+            ))}
+          </div>
+        ) : topUserStatus === "error" ? (
+          <ErrorCard
+            title="Error loading users"
+            description="We are sorry but this is for the test"
+            className="mt-3"
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            {topUserData.map((user) => (
               <UserCardSmall
                 id={user.id}
                 key={user.id}
@@ -88,9 +102,9 @@ const Feed: NextPage = () => {
                 lastName={user.lastName}
                 username={user.username}
               />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         <Heading size="h2" className="mt-12">
           Recent
@@ -99,8 +113,11 @@ const Feed: NextPage = () => {
           Array.from({ length: 4 }).map((_, i) => (
             <PostCardSkeleton key={i} className="mt-4" />
           ))
-        ) : recentPostStatus === "error" ? (
-          <ErrorCard /> // TODO: Error handling
+        ) : recentPostStatus === "error" && !isFetchNextPageError ? (
+          <ErrorCard
+            title="Error loading posts"
+            description="We're sorry this is for the test"
+          />
         ) : (
           <>
             {recentPostData.pages.map((page) => (
@@ -123,13 +140,22 @@ const Feed: NextPage = () => {
               </React.Fragment>
             ))}
 
-            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
-              {isFetchingNextPage
-                ? "Loading more..."
-                : hasNextPage
-                ? "Load newer"
-                : "No more posts"}
-            </LoadingIndicator>
+            {isFetchNextPageError && (
+              <ErrorCard
+                title="Error fetching next post"
+                description="We're sorry this is for the test"
+                className="mt-3"
+              />
+            )}
+            {!isFetchNextPageError && (
+              <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
+                {isFetchingNextPage
+                  ? "Loading more..."
+                  : hasNextPage
+                  ? "Load newer"
+                  : "No more posts"}
+              </LoadingIndicator>
+            )}
           </>
         )}
       </Container>
