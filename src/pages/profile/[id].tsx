@@ -13,19 +13,22 @@ import PostCard from "@/components/PostCard";
 import { useInView } from "react-intersection-observer";
 import React from "react";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import ErrorCard from "@/components/ErrorCard";
 
-// TODO: Potentially own file
-// TODO: Skeelton states acrosss the board
-const UserPosts = ({ id }: { id: string }) => {
+const Profile: NextPage = () => {
   const { ref, inView } = useInView();
+  const router = useRouter();
+  const { id } = router.query;
+  const { data: userProfileData, status: userProfileStatus } =
+    useUserProfileQuery(id as string);
+
   const {
-    status,
-    data,
-    error,
+    status: userPostsStatus,
+    data: userPostsData,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useUserPostsQuery(id);
+  } = useUserPostsQuery(id as string);
 
   React.useEffect(() => {
     if (inView) {
@@ -33,77 +36,69 @@ const UserPosts = ({ id }: { id: string }) => {
     }
   }, [fetchNextPage, inView]);
 
-  return (
-    <div>
-      {status === "pending" ? (
-        Array.from({ length: 4 }).map((_, i) => (
-          <PostCardSkeleton key={i} className="mt-4" />
-        ))
-      ) : status === "error" ? (
-        <span>Error: {error.message}</span> // TODO: Error handling
-      ) : (
-        <>
-          {data.pages.map((page) => (
-            <React.Fragment key={page.pagination.cursor}>
-              {page.posts.map((post) => (
-                <PostCard
-                  userId={post.userId}
-                  key={post.id}
-                  className="mt-4"
-                  tags={post.tags}
-                  body={post.body}
-                  firstName={post.firstName}
-                  lastName={post.lastName}
-                  username={post.username}
-                  likes={post.likes}
-                  dislikes={post.dislikes}
-                  views={post.views}
-                />
-              ))}
-            </React.Fragment>
-          ))}
-
-          <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
-            {isFetchingNextPage
-              ? "Loading more..."
-              : hasNextPage
-              ? "Load newer"
-              : "No more posts"}
-          </LoadingIndicator>
-        </>
-      )}
-    </div>
-  );
-};
-const Profile: NextPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const userProfileQuery = useUserProfileQuery(id as string);
-
-  const skeleton = !userProfileQuery.data;
+  const skeleton =
+    userProfileStatus === "pending" || userPostsStatus === "pending";
   return (
     <div className="bg-gray-50">
       <TitleBar title="Profile" backHref="/" />
       <Container>
         {skeleton ? (
           <ProfileCardSkeleton />
+        ) : userProfileStatus === "error" ? (
+          <ErrorCard /> // TODO: Error handling
         ) : (
           <ProfileCard
-            id={userProfileQuery.data.id}
-            firstName={userProfileQuery.data.firstName}
-            lastName={userProfileQuery.data.lastName}
-            username={userProfileQuery.data.username}
-            state={userProfileQuery.data.state}
-            country={userProfileQuery.data.country}
-            department={userProfileQuery.data.department}
-            posts={userProfileQuery.data.posts}
-            likes={userProfileQuery.data.likes}
+            id={userProfileData.id}
+            firstName={userProfileData.firstName}
+            lastName={userProfileData.lastName}
+            username={userProfileData.username}
+            state={userProfileData.state}
+            country={userProfileData.country}
+            department={userProfileData.department}
+            posts={userProfileData.posts}
+            likes={userProfileData.likes}
           />
         )}
         <Heading size="h2" className="mt-12">
           Recent
         </Heading>
-        <UserPosts id={id as string} />
+        {skeleton ? (
+          Array.from({ length: 4 }).map((_, i) => (
+            <PostCardSkeleton key={i} className="mt-4" />
+          ))
+        ) : userPostsStatus === "error" ? (
+          <ErrorCard /> // TODO: Error handling
+        ) : (
+          <>
+            {userPostsData.pages.map((page) => (
+              <React.Fragment key={page.pagination.cursor}>
+                {page.posts.map((post) => (
+                  <PostCard
+                    userId={post.userId}
+                    key={post.id}
+                    className="mt-4"
+                    tags={post.tags}
+                    body={post.body}
+                    firstName={post.firstName}
+                    lastName={post.lastName}
+                    username={post.username}
+                    likes={post.likes}
+                    dislikes={post.dislikes}
+                    views={post.views}
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+
+            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
+              {isFetchingNextPage
+                ? "Loading more..."
+                : hasNextPage
+                ? "Load newer"
+                : "No more posts"}
+            </LoadingIndicator>
+          </>
+        )}
       </Container>
     </div>
   );

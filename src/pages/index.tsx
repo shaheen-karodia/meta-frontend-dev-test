@@ -122,15 +122,14 @@ const Feed: NextPage = () => {
                 ))}
               </React.Fragment>
             ))}
-            {recentPostData && (
-              <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
-                {isFetchingNextPage
-                  ? "Loading more..."
-                  : hasNextPage
-                  ? "Load newer"
-                  : "No more posts"}
-              </LoadingIndicator>
-            )}
+
+            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
+              {isFetchingNextPage
+                ? "Loading more..."
+                : hasNextPage
+                ? "Load newer"
+                : "No more posts"}
+            </LoadingIndicator>
           </>
         )}
       </Container>
