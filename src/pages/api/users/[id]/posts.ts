@@ -7,7 +7,6 @@ import {
 } from "@/types/dummy-json/responses";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-//TODO change typing
 async function handler(
   req: NextApiRequest,
   res: NextApiResponse<UserPostsAPIResponse>

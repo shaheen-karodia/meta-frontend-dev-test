@@ -15,7 +15,6 @@ import React from "react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import ErrorCard from "@/components/ErrorCard";
 
-//TODO 404 user
 const Profile: NextPage = () => {
   const { ref, inView } = useInView();
   const router = useRouter();

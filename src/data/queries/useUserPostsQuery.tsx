@@ -7,7 +7,6 @@ export const fetchUserPosts = async (
   pageParam: number,
   userId: string
 ): Promise<Extract<UserPostsAPIResponse, { success: true }>> => {
-  //TODO retype
   const response: UserPostsAPIResponse = await axios
     .get(`/api/users/${userId}/posts?cursor=${pageParam}`)
     .then((res) => res.data);
