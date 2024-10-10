@@ -43,8 +43,4 @@ Start the development server with one of the following commands:
 
 ### Skipped
 
-1. Handle error states [INCOMPLETE] - similar to how loading states are handled, destructured from fetch hook and conditionally rendered, not necessary to illusrate here
 2. Use https request caching [INCOMPLETE]
-3. Infinite Loading [INCOMPLETE] - Building blocks are here for paginated api,
-4. tests [IMCOMPLETE]
-5. ssr [INCOMPLETE] - fairly easy to acheive: sending a serialized version of the data to the client and using as initial data for the query
