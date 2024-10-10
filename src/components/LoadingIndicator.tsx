@@ -4,12 +4,13 @@ import BodyText from "./typography/BodyText";
 
 interface LoadingIndicatorProps {
   children?: React.ReactNode;
+  loading?: boolean;
 }
 const LoadingIndicator = forwardRef<HTMLDivElement, LoadingIndicatorProps>(
-  ({ children }, ref) => (
+  ({ loading, children }, ref) => (
     <div ref={ref} className={`block text-center mt-3`}>
       <Image
-        className="animate-spin inline-block mb-3"
+        className={`animate-spin  mb-3 ${loading ? "inline-block" : "hidden"}`}
         src="/icons/spinner.png"
         alt="Loading..."
         width="24"

@@ -21,7 +21,6 @@ const RecentPosts = () => {
     status,
     data,
     error,
-    isFetching,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -63,7 +62,7 @@ const RecentPosts = () => {
             </React.Fragment>
           ))}
           <div>
-            <LoadingIndicator ref={ref}>
+            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
               {isFetchingNextPage
                 ? "Loading more..."
                 : hasNextPage

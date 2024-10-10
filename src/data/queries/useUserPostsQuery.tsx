@@ -1,31 +1,31 @@
-import { DisplayPost } from "@/types/api/display-post";
-import { RecentPostsAPIResponse } from "@/types/api/responses";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { UserPostsAPIResponse } from "@/types/api/responses";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { QUERY_KEYS } from "../utils";
 
 export const fetchUserPosts = async (
-  skip: number,
+  pageParam: number,
   userId: string
-): Promise<DisplayPost[]> => {
-  const response: RecentPostsAPIResponse = await axios
-    .get(`/api/users/${userId}/posts`, {
-      params: { skip },
-    })
+): Promise<Extract<UserPostsAPIResponse, { success: true }>> => {
+  //TODO retype
+  const response: UserPostsAPIResponse = await axios
+    .get(`/api/users/${userId}/posts?cursor=${pageParam}`)
     .then((res) => res.data);
 
   if (response.success) {
-    return response.posts;
+    return response;
   } else {
     throw new Error(response.error);
   }
 };
 
-const useUserPostsQuery = (page: number, userId: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.USER, userId, QUERY_KEYS.POSTS, page],
-    queryFn: () => fetchUserPosts(page, userId),
-    placeholderData: keepPreviousData,
+const useUserPostsQuery = (userId: string) => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.USER, userId, QUERY_KEYS.POSTS],
+    queryFn: ({ pageParam }) => fetchUserPosts(pageParam, userId),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.pagination.nextId,
+    enabled: !!userId,
   });
 };
 

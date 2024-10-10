@@ -41,3 +41,11 @@ export type RecentPostsAPIResponse =
       pagination: PaginatedAPI;
     }
   | StandardError;
+
+export type UserPostsAPIResponse =
+  | {
+      success: true;
+      posts: DisplayPost[];
+      pagination: PaginatedAPI;
+    }
+  | StandardError;
