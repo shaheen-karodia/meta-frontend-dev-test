@@ -88,7 +88,7 @@ const Feed: NextPage = () => {
           </div>
         ) : topUserStatus === "error" ? (
           <ErrorCard
-            title="Error loading users"
+            title="Error loading user"
             description="We are sorry but this is for the test"
             className="mt-3"
           />

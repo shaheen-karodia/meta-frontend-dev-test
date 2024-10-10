@@ -27,6 +27,7 @@ const Profile: NextPage = () => {
     status: userPostsStatus,
     data: userPostsData,
     isFetchingNextPage,
+    isFetchNextPageError,
     fetchNextPage,
     hasNextPage,
   } = useUserPostsQuery(id as string);
@@ -46,7 +47,11 @@ const Profile: NextPage = () => {
         {skeleton ? (
           <ProfileCardSkeleton />
         ) : userProfileStatus === "error" ? (
-          <ErrorCard /> // TODO: Error handling
+          <ErrorCard
+            title="Error loading users"
+            description="We are sorry but this is for the test"
+            className="mt-3"
+          />
         ) : (
           <ProfileCard
             id={userProfileData.id}
@@ -67,8 +72,11 @@ const Profile: NextPage = () => {
           Array.from({ length: 4 }).map((_, i) => (
             <PostCardSkeleton key={i} className="mt-4" />
           ))
-        ) : userPostsStatus === "error" ? (
-          <ErrorCard /> // TODO: Error handling
+        ) : userPostsStatus === "error" && !isFetchNextPageError ? (
+          <ErrorCard
+            title="Error loading posts"
+            description="We're sorry this is for the test"
+          />
         ) : (
           <>
             {userPostsData.pages.map((page) => (
@@ -91,13 +99,22 @@ const Profile: NextPage = () => {
               </React.Fragment>
             ))}
 
-            <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
-              {isFetchingNextPage
-                ? "Loading more..."
-                : hasNextPage
-                ? "Load newer"
-                : "No more posts"}
-            </LoadingIndicator>
+            {isFetchNextPageError && (
+              <ErrorCard
+                title="Error fetching next post"
+                description="We're sorry this is for the test"
+                className="mt-3"
+              />
+            )}
+            {!isFetchNextPageError && (
+              <LoadingIndicator ref={ref} loading={isFetchingNextPage}>
+                {isFetchingNextPage
+                  ? "Loading more..."
+                  : hasNextPage
+                  ? "Load newer"
+                  : "No more posts"}
+              </LoadingIndicator>
+            )}
           </>
         )}
       </Container>
