@@ -13,6 +13,7 @@ import React from "react";
 
 import { useInView } from "react-intersection-observer";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import ErrorCard from "@/components/ErrorCard";
 
 // TODO: Place in own File
 const RecentPosts = () => {
@@ -88,6 +89,7 @@ const Feed: NextPage = () => {
     <div className="bg-gray-50">
       <TitleBar title="Feed" />
       <Container>
+        <ErrorCard />
         <Heading size="h2">Suggested Posts</Heading>
         {skeleton
           ? Array.from({ length: 2 }).map((_, i) => (
