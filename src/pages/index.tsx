@@ -9,11 +9,10 @@ import useTopUsersQuery from "@/data/queries/useTopUsersQuery";
 import { UserCardSkeleton } from "@/components/skeletons/UserCardSkeleton";
 import PostCardSkeleton from "@/components/skeletons/PostCardSkeleton";
 import useRecentPostsQuery from "@/data/queries/useRecentPostsQuery";
-import React, { useState } from "react";
-import { RecentPostsAPIResponse } from "@/types/api/responses";
-import { useInView } from "react-intersection-observer";
+import React from "react";
 
-// TODO: Place in own File
+import { useInView } from "react-intersection-observer";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 // TODO: Place in own File
 const RecentPosts = () => {
@@ -64,22 +63,13 @@ const RecentPosts = () => {
             </React.Fragment>
           ))}
           <div>
-            <button
-              ref={ref}
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-            >
+            <LoadingIndicator ref={ref}>
               {isFetchingNextPage
                 ? "Loading more..."
                 : hasNextPage
-                ? "Load Newer"
-                : "Nothing more to load"}
-            </button>
-          </div>
-          <div>
-            {isFetching && !isFetchingNextPage
-              ? "Background Updating..."
-              : null}
+                ? "Load newer"
+                : "No more posts"}
+            </LoadingIndicator>
           </div>
         </>
       )}
@@ -88,10 +78,9 @@ const RecentPosts = () => {
 };
 
 const Feed: NextPage = () => {
-  const [page, setPage] = useState(0); //TODO get rid off
   const topUserQuery = useTopUsersQuery();
   const suggestedPostsQuery = useSuggestedPostsQuery();
-  const recentQuery = useRecentPostsQuery(page); // Todo change
+  const recentQuery = useRecentPostsQuery();
 
   const skeleton =
     !topUserQuery.data || !suggestedPostsQuery.data || !recentQuery.data;
